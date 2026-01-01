@@ -11,7 +11,8 @@ class SnakePart {
 let speed = 7;
 
 let tileCount = 20;
-let tileSize = canvas.width / tileCount - 2;
+let tileSize = canvas.width / tileCount;
+let tileFillSize = tileSize - 2;
 
 let headX = 10;
 let headY = 10;
@@ -125,7 +126,12 @@ function drawSnake() {
   ctx.fillStyle = "green";
   for (let i = 0; i < snakeParts.length; i++) {
     let part = snakeParts[i];
-    ctx.fillRect(part.x * tileCount, part.y * tileCount, tileSize, tileSize);
+    ctx.fillRect(
+      part.x * tileSize + 1,
+      part.y * tileSize + 1,
+      tileFillSize,
+      tileFillSize
+    );
   }
 
   snakeParts.push(new SnakePart(headX, headY)); //put an item at the end of the list next to the head
@@ -134,7 +140,12 @@ function drawSnake() {
   }
 
   ctx.fillStyle = "orange";
-  ctx.fillRect(headX * tileCount, headY * tileCount, tileSize, tileSize);
+  ctx.fillRect(
+    headX * tileSize + 1,
+    headY * tileSize + 1,
+    tileFillSize,
+    tileFillSize
+  );
 }
 
 function changeSnakePosition() {
@@ -144,7 +155,12 @@ function changeSnakePosition() {
 
 function drawApple() {
   ctx.fillStyle = "red";
-  ctx.fillRect(appleX * tileCount, appleY * tileCount, tileSize, tileSize);
+  ctx.fillRect(
+    appleX * tileSize + 1,
+    appleY * tileSize + 1,
+    tileFillSize,
+    tileFillSize
+  );
 }
 
 function checkAppleCollision() {
@@ -163,7 +179,7 @@ function keyDown(event) {
   //up
   if (event.keyCode == 38 || event.keyCode == 87) {
     //87 is w
-    if (inputsYVelocity == 1) return;
+    if (yVelocity == 1) return;
     inputsYVelocity = -1;
     inputsXVelocity = 0;
   }
@@ -171,7 +187,7 @@ function keyDown(event) {
   //down
   if (event.keyCode == 40 || event.keyCode == 83) {
     // 83 is s
-    if (inputsYVelocity == -1) return;
+    if (yVelocity == -1) return;
     inputsYVelocity = 1;
     inputsXVelocity = 0;
   }
@@ -179,7 +195,7 @@ function keyDown(event) {
   //left
   if (event.keyCode == 37 || event.keyCode == 65) {
     // 65 is a
-    if (inputsXVelocity == 1) return;
+    if (xVelocity == 1) return;
     inputsYVelocity = 0;
     inputsXVelocity = -1;
   }
@@ -187,7 +203,7 @@ function keyDown(event) {
   //right
   if (event.keyCode == 39 || event.keyCode == 68) {
     //68 is d
-    if (inputsXVelocity == -1) return;
+    if (xVelocity == -1) return;
     inputsYVelocity = 0;
     inputsXVelocity = 1;
   }
